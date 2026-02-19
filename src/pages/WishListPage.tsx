@@ -16,10 +16,87 @@ const WishListPage: React.FC = () => {
     publishedDate: '',
     pageCount: '',
   });
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const generateCover = (): string => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 128;
+    canvas.height = 192;
+    const ctx = canvas.getContext('2d')!;
+
+    const palettes = [
+      ['#1a1a2e', '#7c4dff', '#b388ff'],
+      ['#0f2027', '#ea4c89', '#f7971e'],
+      ['#0d0d14', '#00bcd4', '#00e676'],
+      ['#1a0533', '#ff6b6b', '#ffd700'],
+      ['#0a1628', '#3a86ff', '#8338ec'],
+    ];
+    const palette = palettes[Math.floor(Math.random() * palettes.length)];
+
+    const grad = ctx.createLinearGradient(0, 0, 128, 192);
+    grad.addColorStop(0, palette[0]);
+    grad.addColorStop(1, palette[1]);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 128, 192);
+
+    ctx.beginPath();
+    ctx.arc(100, 40, 55, 0, Math.PI * 2);
+    ctx.fillStyle = palette[2] + '33';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(20, 160, 40, 0, Math.PI * 2);
+    ctx.fillStyle = palette[1] + '44';
+    ctx.fill();
+
+    ctx.strokeStyle = palette[2] + '88';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(6, 6, 116, 180);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 13px serif';
+    ctx.textAlign = 'center';
+    const title = form.title || 'Book Title';
+    const words = title.split(' ');
+    let lines: string[] = [];
+    let current = '';
+    words.forEach((w) => {
+      if (ctx.measureText(current + ' ' + w).width > 110) {
+        lines.push(current);
+        current = w;
+      } else {
+        current = current ? current + ' ' + w : w;
+      }
+    });
+    lines.push(current);
+    lines.slice(0, 4).forEach((line, i) => {
+      ctx.fillText(line, 64, 90 + i * 16);
+    });
+
+    ctx.fillStyle = palette[2];
+    ctx.font = '10px sans-serif';
+    ctx.fillText(form.author || 'Author', 64, 165);
+
+    return canvas.toDataURL('image/png');
+  };
+
+  const handleGenerateCover = () => {
+    setImagePreview(generateCover());
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,11 +114,15 @@ const WishListPage: React.FC = () => {
         description: form.description || undefined,
         publishedDate: form.publishedDate || undefined,
         pageCount: form.pageCount ? parseInt(form.pageCount) : undefined,
+        imageLinks: imagePreview
+          ? { thumbnail: imagePreview, smallThumbnail: imagePreview }
+          : undefined,
       },
     };
 
     addBook(newBook);
     setForm({ title: '', author: '', description: '', publishedDate: '', pageCount: '' });
+    setImagePreview(null);
     setError('');
     setShowForm(false);
   };
@@ -95,6 +176,48 @@ const WishListPage: React.FC = () => {
           <div className="form-group">
             <label>Description</label>
             <textarea name="description" value={form.description} onChange={handleChange} placeholder="Short description..." rows={3} />
+          </div>
+
+          <div className="form-group">
+            <label>Book Cover Image</label>
+            <div className="image-upload-wrap">
+              <label className="image-upload-label" htmlFor="book-image">
+                {imagePreview ? (
+                  <img src={imagePreview} alt="preview" className="image-preview" />
+                ) : (
+                  <div className="image-upload-placeholder">
+                    <span>📷</span>
+                    <p>Click to upload cover</p>
+                    <small>JPG, PNG, WEBP</small>
+                  </div>
+                )}
+              </label>
+              <input
+                id="book-image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+              />
+              <div className="image-actions">
+                <button
+                  type="button"
+                  className="btn-generate-cover"
+                  onClick={handleGenerateCover}
+                >
+                  🎨 Generate Random Cover
+                </button>
+                {imagePreview && (
+                  <button
+                    type="button"
+                    className="image-remove-btn"
+                    onClick={() => setImagePreview(null)}
+                  >
+                    ✕ Remove
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           {error && <div className="form-error">{error}</div>}
