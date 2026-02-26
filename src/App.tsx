@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { WishListProvider } from './context/WishListContext';
 import Navbar from './components/Navbar';
@@ -11,7 +11,7 @@ import './styles.css';
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AuthProvider>
         <WishListProvider>
           <div className="app">
@@ -35,7 +35,7 @@ const App: React.FC = () => {
           </div>
         </WishListProvider>
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
