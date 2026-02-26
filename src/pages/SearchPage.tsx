@@ -10,7 +10,7 @@ const SearchPage: React.FC = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState('');
 
-  const debouncedQuery = useDebounce(query, 500);
+  const debouncedQuery = useDebounce(query, 1000);
 
   React.useEffect(() => {
     if (!debouncedQuery.trim()) {
@@ -26,8 +26,9 @@ const SearchPage: React.FC = () => {
     setError('');
     setHasSearched(true);
     try {
+      const apiKey = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchTerm)}&maxResults=20`
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchTerm)}&maxResults=20&key=${apiKey}`
       );
       const data = await res.json();
       setResults(data.items || []);
