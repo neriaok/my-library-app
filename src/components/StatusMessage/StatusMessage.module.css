@@ -11,9 +11,10 @@
   padding: 48px 24px;
 }
 
-.kanji {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 64px;
+.mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 56px;
   color: var(--ink-blue);
   opacity: 0.8;
 }

@@ -10,8 +10,6 @@ import '@fontsource/inter/700.css';
 import '@fontsource/playfair-display/600.css';
 import '@fontsource/playfair-display/800.css';
 import '@fontsource/playfair-display/400-italic.css';
-import '@fontsource/noto-serif-jp/300.css';
-import '@fontsource/noto-serif-jp/500.css';
 import './styles/global.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

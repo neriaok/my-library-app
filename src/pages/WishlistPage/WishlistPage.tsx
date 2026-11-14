@@ -22,7 +22,7 @@ const WishlistPage: FC = () => {
     <>
       <div className={styles.toolbar}>
         <p className={styles.count}>
-          {wishlist.length} {wishlist.length === 1 ? 'book' : 'books'} saved <span lang="ja">/ 欲しい本</span>
+          {wishlist.length} {wishlist.length === 1 ? 'book' : 'books'} saved
         </p>
         <button type="button" className={styles.add} onClick={() => setIsFormOpen(true)}>
           + Add manually
@@ -30,7 +30,7 @@ const WishlistPage: FC = () => {
       </div>
 
       {wishlist.length === 0 ? (
-        <StatusMessage kanji="空" title="Your wish list is empty">
+        <StatusMessage mark="Empty" title="Your wish list is empty">
           <Link to="/" className={styles.cta}>
             Browse the shelf →
           </Link>

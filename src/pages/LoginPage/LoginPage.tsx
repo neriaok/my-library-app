@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppDispatch';
 import { useGetUsersQuery } from '../../features/auth/usersApi';
 import { loggedIn } from '../../features/auth/authSlice';
-import KanjiBackdrop from '../../components/KanjiBackdrop';
+import WordBackdrop from '../../components/WordBackdrop';
 import styles from './LoginPage.module.css';
 
 const LoginPage: FC = () => {
@@ -43,13 +43,11 @@ const LoginPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      <KanjiBackdrop left="図書館" right="へようこそ" />
+      <WordBackdrop left="Library" right="Welcome" />
 
       <div className={styles.layout}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>
-            Personal archive <span lang="ja">/ 個人の書庫</span>
-          </p>
+          <p className={styles.eyebrow}>Personal archive</p>
           <h1 className={styles.title}>
             Every book
             <br />

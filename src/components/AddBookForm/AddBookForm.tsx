@@ -65,9 +65,7 @@ const AddBookForm: FC<AddBookFormProps> = ({ onSubmit, onCancel }) => {
   return (
     <div className={styles.backdrop} onClick={onCancel}>
       <form className={styles.form} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-        <p className={styles.eyebrow}>
-          New entry <span lang="ja">/ 新しい本</span>
-        </p>
+        <p className={styles.eyebrow}>New entry</p>
         <h2 className={styles.heading}>Add a book</h2>
 
         <div className={styles.grid}>

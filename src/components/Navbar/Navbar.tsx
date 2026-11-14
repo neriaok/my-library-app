@@ -33,7 +33,7 @@ const Navbar: FC = () => {
   return (
     <header className={styles.navbar}>
       <NavLink to="/" className={styles.brand}>
-        Library <span lang="ja">図書館</span>
+        Library <span>Archive</span>
       </NavLink>
 
       <label className={styles.search}>

@@ -44,8 +44,11 @@
   right: 6%;
   bottom: 4%;
   padding: 1px 4px;
-  font-family: 'Noto Serif JP', serif;
-  font-size: calc(var(--w) * 0.07);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--w) * 0.05);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.85);
   background: rgba(0, 0, 0, 0.35);
@@ -68,9 +71,11 @@
     var(--spine-bg);
 }
 
-.generatedKanji {
-  font-family: 'Noto Serif JP', serif;
-  font-size: calc(var(--w) * 0.28);
+.generatedInitial {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: calc(var(--w) * 0.32);
+  line-height: 1;
   color: var(--spine-accent);
   opacity: 0.85;
 }

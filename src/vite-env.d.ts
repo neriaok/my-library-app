@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_GOOGLE_BOOKS_API_KEY?: string;
+  readonly REACT_APP_GOOGLE_BOOKS_API_KEY?: string;
 }
 
 interface ImportMeta {

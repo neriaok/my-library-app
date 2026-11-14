@@ -1,4 +1,4 @@
-# 📚 Library — 本の記憶
+# 📚 Library — Book Archive
 
 A personal library built on the Google Books API, presented as a **3D curved shelf**: every result is a book box with a generated spine, the selected book turns to face you with its cover, and a year timeline runs underneath.
 
@@ -34,7 +34,7 @@ src/
 │   ├── Tape/                    # a single book as a 3D box (cover / spine / pages)
 │   ├── Timeline/                # year axis
 │   ├── BookDetail/              # full-screen detail view
-│   └── …                        # Navbar, Layout, KanjiBackdrop, AddBookForm, StatusMessage
+│   └── …                        # Navbar, Layout, WordBackdrop, AddBookForm, StatusMessage
 ├── pages/                       # ShelfPage, WishlistPage, LoginPage
 ├── hooks/                       # typed redux hooks, useWishlist, useDebounce, useElementWidth
 └── utils/bookUtils.ts           # spine themes, year/category helpers, hi-res cover URLs

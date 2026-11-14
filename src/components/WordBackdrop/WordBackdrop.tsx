@@ -1,16 +1,16 @@
 import type { FC } from 'react';
-import styles from './KanjiBackdrop.module.css';
+import styles from './WordBackdrop.module.css';
 
-interface KanjiBackdropProps {
+interface WordBackdropProps {
   left?: string;
   right?: string;
 }
 
-const KanjiBackdrop: FC<KanjiBackdropProps> = ({ left = '読書', right = 'の記憶' }) => (
+const WordBackdrop: FC<WordBackdropProps> = ({ left = 'Books', right = 'Memory' }) => (
   <div className={styles.backdrop} aria-hidden="true">
     <span className={styles.left}>{left}</span>
     <span className={styles.right}>{right}</span>
   </div>
 );
 
-export default KanjiBackdrop;
+export default WordBackdrop;

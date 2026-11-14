@@ -46,19 +46,19 @@ const Tape: FC<TapeProps> = ({ book, width, height, depth, className, style }) =
           <img src={coverSrc} alt={title} className={styles.coverImage} onError={handleCoverError} draggable={false} />
         ) : (
           <div className={styles.generatedCover}>
-            <span className={styles.generatedKanji}>本</span>
+            <span className={styles.generatedInitial}>{title.charAt(0)}</span>
             <span className={styles.generatedTitle}>{title}</span>
             <span className={styles.generatedAuthor}>{getAuthors(book)}</span>
           </div>
         )}
         <span className={styles.gloss} />
-        <span className={styles.badge}>本</span>
+        <span className={styles.badge}>Book</span>
       </div>
 
       <div className={clsx(styles.face, styles.spine)}>
         <span className={styles.spineMark} />
         <span className={styles.spineTitle}>{title}</span>
-        <span className={styles.spineBadge}>{year ? String(year).slice(-2) : '本'}</span>
+        <span className={styles.spineBadge}>{year ? String(year).slice(-2) : '—'}</span>
       </div>
 
       <div className={clsx(styles.face, styles.pages)} />
