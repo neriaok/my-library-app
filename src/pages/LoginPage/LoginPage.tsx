@@ -90,7 +90,8 @@ const LoginPage: FC = () => {
                   className={clsx(styles.demoUser, username === u.username && styles.demoUserActive)}
                   onClick={() => handleDemoPick(u.username)}
                 >
-                  {u.username}
+                  <strong>{u.username}</strong>
+                  <span>{u.name}</span>
                 </button>
               ))}
             </div>

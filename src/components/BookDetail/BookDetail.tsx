@@ -15,7 +15,8 @@ interface BookDetailProps {
 const BookDetail: FC<BookDetailProps> = ({ book, onClose }) => {
   const { isInWishlist, addBook, removeBook } = useWishlist();
   const inWishlist = isInWishlist(book.id);
-  const { title, subtitle, description, pageCount, publisher, previewLink, infoLink } = book.volumeInfo;
+  const { title, subtitle, description, pageCount, publisher, previewLink, infoLink, averageRating, ratingsCount } =
+    book.volumeInfo;
   const year = getYear(book);
   const authors = getAuthors(book);
 
@@ -36,7 +37,8 @@ const BookDetail: FC<BookDetailProps> = ({ book, onClose }) => {
     else addBook(book);
   };
 
-  const meta = [year, getCategory(book), pageCount ? `${pageCount} pages` : null].filter(Boolean).join(' / ');
+  const rating = averageRating ? `★ ${averageRating.toFixed(1)}${ratingsCount ? ` (${ratingsCount})` : ''}` : null;
+  const meta = [year, getCategory(book), pageCount ? `${pageCount} pages` : null, rating].filter(Boolean).join(' / ');
   const link = previewLink ?? infoLink;
 
   return (

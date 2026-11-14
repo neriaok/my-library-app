@@ -46,13 +46,26 @@ export const stripHtml = (html: string): string =>
 
 const toHttps = (url: string): string => url.replace(/^http:\/\//, 'https://');
 
-/** Google Books thumbnails are tiny — ask for a larger render, keep the original as fallback. */
-export const getCoverUrls = (book: Book): { large: string; fallback: string } | null => {
-  const links = book.volumeInfo.imageLinks;
-  const original = links?.thumbnail ?? links?.smallThumbnail;
-  if (!original) return null;
-  const fallback = toHttps(original);
-  if (fallback.startsWith('data:')) return { large: fallback, fallback };
-  const large = fallback.replace('&edge=curl', '').replace(/&zoom=\d/, '') + '&fife=w600-h900';
-  return { large, fallback };
+/**
+ * Cover candidates in order of preference. The <img> walks this list on error:
+ * 1. Open Library by ISBN — large, sharp scans (`default=false` makes a missing cover return 404)
+ * 2. Google Books thumbnail, then the small thumbnail
+ * If all fail, the Tape draws a generated cover.
+ */
+export const getCoverSources = (book: Book, size: 'M' | 'L' = 'M'): string[] => {
+  const { imageLinks, industryIdentifiers } = book.volumeInfo;
+  const uploaded = imageLinks?.thumbnail?.startsWith('data:') ? imageLinks.thumbnail : null;
+  if (uploaded) return [uploaded];
+
+  const isbns = (industryIdentifiers ?? [])
+    .filter((id) => id.type === 'ISBN_13' || id.type === 'ISBN_10')
+    .sort((a) => (a.type === 'ISBN_13' ? -1 : 1))
+    .map((id) => id.identifier);
+
+  const openLibrary = isbns.map((isbn) => `https://covers.openlibrary.org/b/isbn/${isbn}-${size}.jpg?default=false`);
+  const google = [imageLinks?.thumbnail, imageLinks?.smallThumbnail]
+    .filter((url): url is string => Boolean(url))
+    .map((url) => toHttps(url).replace('&edge=curl', ''));
+
+  return [...new Set([...openLibrary, ...google])];
 };

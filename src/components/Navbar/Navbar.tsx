@@ -33,7 +33,7 @@ const Navbar: FC = () => {
   return (
     <header className={styles.navbar}>
       <NavLink to="/" className={styles.brand}>
-        Library <span>Archive</span>
+        Library <span className={styles.brandSub}>Archive</span>
       </NavLink>
 
       <label className={styles.search}>
@@ -66,6 +66,10 @@ const Navbar: FC = () => {
                 e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=1f47c4&color=fff`;
               }}
             />
+            <span className={styles.userName}>
+              {user.name}
+              <small>@{user.username}</small>
+            </span>
             <button type="button" className={styles.logout} onClick={handleLogout}>
               Sign out
             </button>

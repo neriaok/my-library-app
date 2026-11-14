@@ -1,7 +1,7 @@
 import { useState, type CSSProperties, type FC } from 'react';
 import clsx from 'clsx';
 import type { Book } from '../../types';
-import { getAuthors, getCoverUrls, getSpineTheme, getYear } from '../../utils/bookUtils';
+import { getAuthors, getCoverSources, getSpineTheme, getYear } from '../../utils/bookUtils';
 import styles from './Tape.module.css';
 
 interface TapeProps {
@@ -16,16 +16,13 @@ interface TapeProps {
 /** A book rendered as a 3D box: cover on the front, spine on the left side. */
 const Tape: FC<TapeProps> = ({ book, width, height, depth, className, style }) => {
   const theme = getSpineTheme(book);
-  const covers = getCoverUrls(book);
-  const [coverSrc, setCoverSrc] = useState(covers?.large);
-  const [coverFailed, setCoverFailed] = useState(false);
+  const coverSources = getCoverSources(book, width > 200 ? 'L' : 'M');
+  const [coverIndex, setCoverIndex] = useState(0);
+  const coverSrc = coverSources[coverIndex];
   const { title } = book.volumeInfo;
   const year = getYear(book);
 
-  const handleCoverError = () => {
-    if (covers && coverSrc !== covers.fallback) setCoverSrc(covers.fallback);
-    else setCoverFailed(true);
-  };
+  const handleCoverError = () => setCoverIndex((index) => index + 1);
 
   const vars = {
     '--w': `${width}px`,
@@ -37,7 +34,7 @@ const Tape: FC<TapeProps> = ({ book, width, height, depth, className, style }) =
     ...style,
   } as CSSProperties;
 
-  const showImage = coverSrc && !coverFailed;
+  const showImage = Boolean(coverSrc);
 
   return (
     <div className={clsx(styles.tape, className)} style={vars}>

@@ -133,6 +133,10 @@
 }
 
 .demoUser {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   padding: 7px 12px;
   border: 1px solid var(--line);
   background: transparent;
@@ -140,6 +144,15 @@
   color: var(--ink-muted);
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.demoUser strong {
+  font-weight: 600;
+}
+
+.demoUser span {
+  font-size: 10px;
+  color: var(--ink-faint);
 }
 
 .demoUser:hover,

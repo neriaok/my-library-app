@@ -168,6 +168,8 @@ const Shelf: FC<ShelfProps> = ({ books, onOpenBook }) => {
               <p className={styles.authors}>{getAuthors(active)}</p>
               <p className={styles.meta}>
                 {year ?? '—'} <span className={styles.dash}>—</span> {getCategory(active)}
+                <span className={styles.dash}>·</span>
+                {String(activeIndex + 1).padStart(2, '0')} / {String(books.length).padStart(2, '0')}
               </p>
             </div>
             <button

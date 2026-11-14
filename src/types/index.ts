@@ -3,6 +3,11 @@ export interface BookImageLinks {
   smallThumbnail?: string;
 }
 
+export interface IndustryIdentifier {
+  type: 'ISBN_10' | 'ISBN_13' | 'ISSN' | 'OTHER';
+  identifier: string;
+}
+
 export interface BookVolumeInfo {
   title: string;
   subtitle?: string;
@@ -14,6 +19,8 @@ export interface BookVolumeInfo {
   pageCount?: number;
   categories?: string[];
   averageRating?: number;
+  ratingsCount?: number;
+  industryIdentifiers?: IndustryIdentifier[];
   previewLink?: string;
   infoLink?: string;
 }

@@ -19,7 +19,7 @@
   text-decoration: none;
 }
 
-.brand span {
+.brandSub {
   margin-left: 6px;
   letter-spacing: 0.1em;
   color: var(--ink-faint);
@@ -98,6 +98,22 @@
   background: #e2dfd8;
 }
 
+.userName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+}
+
+.userName small {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--ink-faint);
+}
+
 .logout {
   background: none;
   border: 0;
@@ -127,11 +143,21 @@
     grid-row: 2;
   }
 
-  .links {
-    gap: 16px;
+  .navbar {
+    letter-spacing: 0.16em;
   }
 
-  .logout {
+  .links {
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  .brandSub,
+  .userName {
     display: none;
+  }
+
+  .user {
+    gap: 8px;
   }
 }
