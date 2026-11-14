@@ -1,63 +1,50 @@
-# 📚 Personal Library Tracker
+# 📚 Library — 本の記憶
 
-A full-featured personal library web app built with **React + TypeScript**.
+A personal library built on the Google Books API, presented as a **3D curved shelf**: every result is a book box with a generated spine, the selected book turns to face you with its cover, and a year timeline runs underneath.
 
 ## Features
 
-- 🔐 **Login with JSONPlaceholder users** — real user data, fake authentication
-- 🔍 **Search books** via Google Books API with debounced input
-- ❤️ **Wish List** — add/remove books, persisted per-user in localStorage
-- 📖 **Book Detail modal** — description, rating, page count
-- 👤 **User avatar + status indicator** in navbar
-- 🌙 **Dark luxury UI** — responsive on all screens
-- ⚡ **Routing** — protected routes with React Router v6
+- **3D shelf hero** — pure CSS 3D (no WebGL). Books sit on an arc, the active one rotates out to show its cover
+- **Navigation** — arrows, keyboard ← → / Enter, mouse wheel, drag/swipe, click any spine, click the timeline
+- **Year timeline** — every book is plotted by publication year; the cursor follows the active book
+- **Book detail view** — large floating 3D book, description, add to / remove from wish list, Google preview link
+- **Search** — debounced, stored in the URL (`/?q=dune`) so results are shareable
+- **Wish list** — saved per user in localStorage, shown on its own shelf, plus manual add with cover upload
+- **Demo login** — JSONPlaceholder users, any password with 3+ characters
+- Responsive, `prefers-reduced-motion` aware, self-hosted fonts
 
-## Tech Stack
+## Tech stack
 
-- React 18 + TypeScript
+- React 18 + TypeScript, Vite
+- Redux Toolkit — `auth` and `wishlist` slices, **RTK Query** for Google Books and users
 - React Router v6
-- Context API for state management (Auth + WishList)
-- Google Books API
-- JSONPlaceholder for fake users
-- CSS (no UI framework — hand-crafted design)
+- CSS Modules + `clsx`
 
-## Getting Started
-
-```bash
-cd library-app
-npm install
-npm start
-```
-
-App runs at `http://localhost:3000`
-
-## Demo Login
-
-Visit the app → you'll be redirected to `/login`.
-
-Click **"Show demo accounts"** to see available usernames from JSONPlaceholder.  
-Pick any user and click it to fill the form. Use **any password of 3+ characters**.
-
-Example:
-- Username: `Bret`
-- Password: `password123`
-
-## Project Structure
+## Structure
 
 ```
 src/
-├── types/         # TypeScript interfaces (Book, User, Context types)
-├── context/       # AuthContext + WishListContext
-├── hooks/         # useDebounce
-├── components/    # Navbar, BookCard, ProtectedRoute
-├── pages/         # LoginPage, SearchPage, WishListPage
-├── App.tsx        # Router setup
-└── styles.css     # Global styles
+├── app/store.ts                 # configureStore + wishlist persistence
+├── features/
+│   ├── auth/                    # authSlice, usersApi (RTK Query)
+│   ├── books/booksApi.ts        # Google Books search (RTK Query)
+│   └── wishlist/wishlistSlice.ts
+├── components/
+│   ├── Shelf/                   # 3D arc, input handling, caption
+│   ├── Tape/                    # a single book as a 3D box (cover / spine / pages)
+│   ├── Timeline/                # year axis
+│   ├── BookDetail/              # full-screen detail view
+│   └── …                        # Navbar, Layout, KanjiBackdrop, AddBookForm, StatusMessage
+├── pages/                       # ShelfPage, WishlistPage, LoginPage
+├── hooks/                       # typed redux hooks, useWishlist, useDebounce, useElementWidth
+└── utils/bookUtils.ts           # spine themes, year/category helpers, hi-res cover URLs
 ```
 
-## Bonus Features Implemented
+## Getting started
 
-- ✅ Debouncing on search input (500ms)
-- ✅ Loading spinner during API fetch
-- ✅ Book Detail modal with full description
-- ✅ Responsive mobile design
+```bash
+npm install
+npm run dev
+```
+
+Optional: copy `.env.example` to `.env` and add `VITE_GOOGLE_BOOKS_API_KEY` for a higher rate limit — the app works without one.

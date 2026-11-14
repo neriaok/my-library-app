@@ -1,0 +1,137 @@
+.navbar {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 360px) 1fr;
+  align-items: center;
+  gap: 24px;
+  height: 68px;
+  padding: 0 48px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.brand {
+  justify-self: start;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand span {
+  margin-left: 6px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 2px;
+  transition: border-color 0.2s ease;
+}
+
+.search:focus-within {
+  border-color: var(--ink-blue);
+}
+
+.searchIcon {
+  font-size: 15px;
+  color: var(--ink-faint);
+  letter-spacing: 0;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+.search input::placeholder {
+  color: var(--ink-faint);
+}
+
+.links {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.link {
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+}
+
+.link:hover,
+.active {
+  color: var(--ink-blue);
+  border-color: currentColor;
+}
+
+.count {
+  font-size: 8px;
+  margin-left: 2px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e2dfd8;
+}
+
+.logout {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--ink-faint);
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: var(--ink-blue);
+}
+
+@media (max-width: 860px) {
+  .navbar {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+    padding: 14px 20px;
+    row-gap: 12px;
+  }
+
+  .search {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .links {
+    gap: 16px;
+  }
+
+  .logout {
+    display: none;
+  }
+}

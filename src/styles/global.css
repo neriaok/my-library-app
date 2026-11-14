@@ -1,0 +1,43 @@
+:root {
+  --paper: #f2f1ee;
+  --ink: #17181c;
+  --ink-muted: #4a4d57;
+  --ink-faint: #9497a0;
+  --ink-blue: #1f47c4;
+  --line: rgba(23, 24, 28, 0.16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--ink-blue);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

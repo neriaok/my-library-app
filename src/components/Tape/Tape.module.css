@@ -1,0 +1,174 @@
+.tape {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  backface-visibility: hidden;
+  opacity: var(--tape-opacity, 1);
+  transition: opacity 0.6s ease;
+}
+
+/* Front: the cover */
+.cover {
+  inset: 0;
+  transform: translateZ(calc(var(--d) / 2));
+  background: var(--spine-bg);
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+.gloss {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0, rgba(255, 255, 255, 0.12) 3%, transparent 9%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.22) 0%, transparent 35%, transparent 70%, rgba(0, 0, 0, 0.18) 100%);
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  right: 6%;
+  bottom: 4%;
+  padding: 1px 4px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: calc(var(--w) * 0.07);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.35);
+  line-height: 1.2;
+}
+
+.generatedCover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8%;
+  padding: 12%;
+  text-align: center;
+  color: var(--spine-fg);
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.14), transparent 55%),
+    var(--spine-bg);
+}
+
+.generatedKanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: calc(var(--w) * 0.28);
+  color: var(--spine-accent);
+  opacity: 0.85;
+}
+
+.generatedTitle {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: calc(var(--w) * 0.1);
+  line-height: 1.1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.generatedAuthor {
+  font-family: 'Inter', sans-serif;
+  font-size: calc(var(--w) * 0.055);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* Left side: the spine */
+.spine {
+  top: 0;
+  left: calc((var(--w) - var(--d)) / 2);
+  width: var(--d);
+  height: var(--h);
+  transform: rotateY(-90deg) translateZ(calc(var(--w) / 2));
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.32), transparent 18%, rgba(255, 255, 255, 0.1) 50%, transparent 82%, rgba(0, 0, 0, 0.38)),
+    var(--spine-bg);
+  color: var(--spine-fg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--d) * 0.3) 0 calc(var(--d) * 0.22);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.spineMark {
+  width: calc(var(--d) * 0.34);
+  height: calc(var(--d) * 0.34);
+  border: 1px solid var(--spine-accent);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.spineTitle {
+  flex: 1;
+  margin: calc(var(--d) * 0.35) 0;
+  writing-mode: vertical-rl;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: calc(var(--d) * 0.36);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spineBadge {
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--d) * 0.24);
+  padding: 2px 3px;
+  border: 1px solid currentColor;
+  line-height: 1;
+}
+
+/* Right side: page edges */
+.pages {
+  top: 1%;
+  left: calc((var(--w) - var(--d)) / 2);
+  width: var(--d);
+  height: 98%;
+  transform: rotateY(90deg) translateZ(calc(var(--w) / 2 - 2px));
+  background: repeating-linear-gradient(90deg, #f4efe4 0 1px, #ddd6c6 1px 2px);
+}
+
+.back {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+  background: var(--spine-bg);
+}
+
+.top {
+  left: 0;
+  top: calc((var(--h) - var(--d)) / 2);
+  width: var(--w);
+  height: var(--d);
+  transform: rotateX(90deg) translateZ(calc(var(--h) / 2));
+  background: linear-gradient(0deg, #e9e3d6, #f7f3ea);
+}
